@@ -53,14 +53,13 @@ Installation and integration instructions are available at [jsHarmonyCMS.com](ht
    * [editorScript](#page-editorscript)
    * [notFound](#page-notfound)
 * *Public Methods*
-   * [fromArray](#page::fromarray)
+   * [fromArray](#pagefromarray)
 
 ### *apHarmony\jsHarmonyCms\Response Class*
 
 * [Constructor](#response-constructor)
 * *Public Properties*
    * [type](#response-type)
-   * [content](#response-content)
    * [filename](#response-filename)
    * [redirect](#response-redirect)
 
@@ -835,7 +834,7 @@ HTTP Code ('301', '302' or 'PASSTHRU')
 
 ---
 
-### Redirect->content_type
+### Redirect->url
 
 `(string|null)`
 

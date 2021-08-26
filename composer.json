@@ -1,6 +1,7 @@
 {
   "name": "apharmony/jsharmony-cms-sdk-php",
   "description": "jsHarmony CMS SDK for PHP",
+  "version": "1.0.1",
   "keywords": [
     "jsHarmony",
     "CMS",
