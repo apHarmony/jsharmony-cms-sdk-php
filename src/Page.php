@@ -20,6 +20,8 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace apHarmony\jsHarmonyCms;
 
+use Exception;
+
 /**
  * @SuppressWarnings(PHPMD.CamelCasePropertyName)
  */
@@ -114,8 +116,13 @@ class PageSeo {
  * @SuppressWarnings(PHPMD.CamelCasePropertyName)
  */
 class PageDictionary {
-  public function __get($name){ return $this->__dictionary[$name] ?? '';}
-  public function __set($name, $val){ $this->__dictionary[$name] = $val;}
+  public function __get($name){ return $this->__dictionary[$name] ?? ''; }
+  public function __set($name, $val){ $this->__dictionary[$name] = $val; }
+  public function __call($name, $args){
+    if(count($args)==0) return $this->__dictionary[$name] ?? '';
+    else if(count($args)==1) $this->__dictionary[$name] = $args[0];
+    else throw new Exception('Invalid Arguments');
+  }
 
   /** @var array */
   private $__dictionary = [];

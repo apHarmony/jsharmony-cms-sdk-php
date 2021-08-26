@@ -81,6 +81,11 @@ Installation and integration instructions are available at [jsHarmonyCMS.com](ht
    * [http_code](#redirect-http_code)
    * [url](#redirect-url)
 
+### *jsHarmonyCmsEditor* Class (Client JS)
+
+* [Constructor](#jsharmonycmseditor-class)
+
+
 ---
 
 ## *apHarmony\jsHarmonyCms\Router Class*
@@ -839,3 +844,31 @@ HTTP Code ('301', '302' or 'PASSTHRU')
 `(string|null)`
 
 Destination URL
+
+---
+
+## *jsHarmonyCmsEditor Class (Client JS)*
+
+---
+
+### Constructor
+
+```js
+jsHarmonyCmsEditor(config)
+```
+
+#### Arguments
+
+- `config` (Object) :: Object with one or more of the configuration keys below:
+```js
+{
+  access_keys: [],
+  //Array(string) CMS Editor Access Keys, used to validate remote CMS URL
+}
+```
+
+#### Example
+```js
+//Load the CMS Editor in this page
+jsHarmonyCmsEditor({ access_keys: ['*****ACCESS_KEY*****'] });
+```

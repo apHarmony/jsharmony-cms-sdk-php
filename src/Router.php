@@ -79,7 +79,7 @@ class Router {
     ], $options);
 
     try{
-      if(!$url) $url = $this->getCurrentUrl();
+      if(is_null($url)) $url = $this->getCurrentUrl();
       $url = $this->prefixUrlSlash($url);
       $urlPath = $this->extractUrlPath($url);
       if($options['serveCmsEditorScript']){
@@ -180,7 +180,7 @@ class Router {
    * @return bool True if page is opened from CMS Editor
    */
   public function isInEditor(?string $url = null){
-    if(!$url) $url = $this->getCurrentUrl();
+    if(is_null($url)) $url = $this->getCurrentUrl();
     $qs = $this->getQuery($url);
     return (isset($qs['jshcms_token']) && $qs['jshcms_token']);
   }
@@ -200,7 +200,7 @@ class Router {
       'variation' => 1,
     ], $options);
 
-    if(!$url) $url = $this->getCurrentUrl();
+    if(is_null($url)) $url = $this->getCurrentUrl();
     $url = $this->prefixUrlSlash($url);
     $urlPath = $this->extractUrlPath($url);
     //Add url prefix
@@ -261,7 +261,7 @@ class Router {
    * @return Redirect|null Redirect
    */
   public function matchRedirect(?array $redirects, ?string $url){
-    if(!$url) $url = $this->getCurrentUrl();
+    if(is_null($url)) $url = $this->getCurrentUrl();
     $url = $this->prefixUrlSlash($url);
     $urlPath = $this->extractUrlPath($url);
 
@@ -313,7 +313,7 @@ class Router {
    * If the CMS Server is not found in config['cms_server_urls'], an empty string will be returned
    */
   public function getEditorScript(?string $url = null){
-    if(!$url) $url = $this->getCurrentUrl();
+    if(is_null($url)) $url = $this->getCurrentUrl();
     $qs = $this->getQuery($url);
     if (!isset($qs['jshcms_token']) || !$qs['jshcms_token']) return '';
     if (!isset($qs['jshcms_url']) || !$qs['jshcms_url']) return '';
@@ -450,7 +450,7 @@ class Router {
       'variation' => 1,
     ], $options);
 
-    if(!$url) $url = $this->getCurrentUrl();
+    if(is_null($url)) $url = $this->getCurrentUrl();
     
     try{
       $pageFilename = $this->getPageFileName($url);
@@ -530,7 +530,7 @@ class Router {
   }
 
   private function prefixUrlSlash($url){
-    if(!$url) return $url;
+    if(!$url) return '/';
     if(strpos($url, '//')===false){
       if(strpos($url, '/') !== 0){
         if(strpos($url, "\\")===0) $url = substr($url, 1);
