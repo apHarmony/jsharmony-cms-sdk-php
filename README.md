@@ -81,9 +81,9 @@ Installation and integration instructions are available at [jsHarmonyCMS.com](ht
    * [http_code](#redirect-http_code)
    * [url](#redirect-url)
 
-### *jsHarmonyCmsEditor* Class (Client JS)
+### *jsHarmonyCmsEditor Class* (Client JS)
 
-* [Constructor](#jsharmonycmseditor-class)
+* [Constructor](#jsharmonycmseditor-constructor)
 
 
 ---
@@ -851,7 +851,7 @@ Destination URL
 
 ---
 
-### Constructor
+### jsHarmonyCmsEditor Constructor
 
 ```js
 jsHarmonyCmsEditor(config)
