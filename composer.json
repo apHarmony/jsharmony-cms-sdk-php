@@ -1,0 +1,31 @@
+{
+  "name": "apharmony/jsharmony-cms-sdk-php",
+  "description": "jsHarmony CMS SDK for PHP",
+  "keywords": [
+    "jsHarmony",
+    "CMS",
+    "content",
+    "SDK",
+    "PHP"
+  ],
+  "authors": [
+    {
+      "name": "apHarmony",
+      "email": "contact@apharmony.com",
+      "homepage": "https://www.apharmony.com/"
+    }
+  ],
+  "type": "library",
+  "license": "LGPL-3.0",
+  "require": {
+    "php": ">=7.1"
+  },
+  "autoload": {
+      "psr-4" : {
+          "apHarmony\\jsHarmonyCms\\" : "src/"
+      }
+  },
+  "scripts": {
+    "build": "uglifyjs clientjs/jsHarmonyCmsEditor.js --comments /^!/ > clientjs/jsHarmonyCmsEditor.min.js"
+  }
+}
