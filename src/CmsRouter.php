@@ -20,14 +20,14 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace apHarmony\jsHarmonyCms;
 
-use apHarmony\jsHarmonyCms\Page;
-use apHarmony\jsHarmonyCms\Redirect;
-use apHarmony\jsHarmonyCms\Response;
+use apHarmony\jsHarmonyCms\CmsPage;
+use apHarmony\jsHarmonyCms\CmsRedirect;
+use apHarmony\jsHarmonyCms\CmsResponse;
 use Exception;
 
-class PageNotFoundException extends Exception { public function  __construct($urlPath) { parent::__construct('Page not found: '.$urlPath); } }
+class CmsPageNotFoundException extends Exception { public function  __construct($urlPath) { parent::__construct('Page not found: '.$urlPath); } }
 
-class Router {
+class CmsRouter {
 
   public $config = [
     'content_path' => '.',              //(string) File path to published CMS content files
@@ -37,11 +37,12 @@ class Router {
     'passthru_timeout' => 30,           //(int) Maximum number of seconds for passthru request
     'cms_clientjs_editor_launcher_path' => '/.jsHarmonyCms/jsHarmonyCmsEditor.js', //(string) Path where router will serve the client-side JS script that launches CMS Editor
     'cms_server_urls' => [],            //Array(string) The CMS Server URLs that will be enabled for Page Editing (set to '*' to enable any remote CMS)
-                                        //  * Used by Page->editorScript, and the getEditorScript function
+                                        //  * Used by CmsPage->editorScript, and the getEditorScript function
                                         //  * NOT used by jsHarmonyCmsEditor.js - the launcher instead uses access_keys for validating the remote CMS
   ];
 
   public function __construct($config = []){
+    if(!$config) $config = [];
     $this->config = array_merge($this->config, $config);
   }
 
@@ -137,7 +138,7 @@ class Router {
         return true;
       }
     }
-    catch(PageNotFoundException $ex){
+    catch(CmsPageNotFoundException $ex){
       if($options['on404']){
         return $options['on404']($this) ?? true;
       }
@@ -154,11 +155,11 @@ class Router {
    * getStandalone [Main Entry Point] - Get CMS Page Data for Standalone Integration
    * @param string|null $url CMS Page URL
    *      Use Full URL, Root-relative URL, or leave blank for current URL
-   * @return Page Page Content
-   * If page is opened from CMS Editor or Not Found, an empty Page Object will be returned
+   * @return CmsPage Page Content
+   * If page is opened from CMS Editor or Not Found, an empty CmsPage Object will be returned
    */
   public function getStandalone(?string $url = null){
-    $page = new Page();
+    $page = new CmsPage();
     $page->isInEditor = $this->isInEditor();
     if($page->isInEditor) $page->editorScript = $this->getEditorScript();
     else {
@@ -217,9 +218,9 @@ class Router {
         if($urlExt && $defaultExt && ($urlExt == $defaultExt)) $options['variation'] = (int)$options['variation'] + 1;
         else $url = $this->joinPath($url, $this->config['default_document']);
       }
-      if($options['variation']>=3) throw new PageNotFoundException($urlPath);
+      if($options['variation']>=3) throw new CmsPageNotFoundException($urlPath);
     }
-    else if($options['variation']>=2) throw new PageNotFoundException($urlPath);
+    else if($options['variation']>=2) throw new CmsPageNotFoundException($urlPath);
     return $url;
   }
 
@@ -227,7 +228,7 @@ class Router {
    * Find match in CMS router for target URL
    * @param string|null $url CMS Page URL
    *      Use Full URL, Root-relative URL, or leave blank for current URL
-   * @return Response|null Response with Page Filename, Redirect, or null if not found
+   * @return CmsResponse|null Response with Page Filename, Redirect, or null if not found
   */
   public function route(?string $url = null){
 
@@ -236,7 +237,7 @@ class Router {
     $redirects = $this->getRedirectData();
     $redirect = $this->matchRedirect($redirects, $url);
     if($redirect){
-      $response = new Response('redirect');
+      $response = new CmsResponse('redirect');
       $response->redirect = $redirect;
       return $response;
     }
@@ -244,11 +245,11 @@ class Router {
     try{
       $pageFilename = $this->getPageFileName($url);
 
-      $response = new Response('page');
+      $response = new CmsResponse('page');
       $response->filename = $pageFilename;
       return $response;
     }
-    catch(PageNotFoundException $ex){
+    catch(CmsPageNotFoundException $ex){
       return null;
     }
   }
@@ -258,7 +259,7 @@ class Router {
    * @param array|null $redirects Array of CMS Redirects (from getRedirectData function)
    * @param string|null $url Target URL to match against the CMS Redirects
    *      Use Full URL, Root-relative URL, or leave blank for current URL
-   * @return Redirect|null Redirect
+   * @return CmsRedirect|null Redirect
    */
   public function matchRedirect(?array $redirects, ?string $url){
     if(is_null($url)) $url = $this->getCurrentUrl();
@@ -284,7 +285,7 @@ class Router {
           if(!preg_match('/'.str_replace("/","\\/",$cmpUrlPath).'/'.$rxFlags, $urlPath)) continue;
           $destUrl = preg_replace('/'.str_replace("/","\\/",$cmpUrlPath).'/'.$rxFlags, $redirect['redirect_dest'], $urlPath);
         }
-        return new Redirect($redirect['redirect_http_code'], $destUrl);
+        return new CmsRedirect($redirect['redirect_http_code'], $destUrl);
       }
     }
     return null;
@@ -388,8 +389,8 @@ class Router {
   /**
    * passthru - Perform Passthru Request
    * @param string $url Target URL for Passthru Redirect
-   * @return PassthruResponse Response
-   * Call the PassthruResponse->serve() method to serve the page
+   * @return CmsPassthruResponse Response
+   * Call the CmsPassthruResponse->serve() method to serve the page
    */
   public function passthru(string $url){
     $url = $this->escapeURL($url);
@@ -409,9 +410,9 @@ class Router {
 
       if($rsltError) throw new Exception($rsltError);
 
-      if ($rsltHttpCode >= 400) throw new PageNotFoundException($url);
+      if ($rsltHttpCode >= 400) throw new CmsPageNotFoundException($url);
 
-      $response = new PassthruResponse();
+      $response = new CmsPassthruResponse();
       $response->http_code = $rsltHttpCode;
       $response->content = $rsltContent;
       $response->content_type = $rsltContentType;
@@ -443,7 +444,7 @@ class Router {
    *      Use Full URL, Root-relative URL, or leave blank for current URL
    * @param array $options An associative array that may have any of the following keys:
    *      variation:           (int)  Starting Variation ID
-   * @return Page|null Page Content, or null if page was not found
+   * @return CmsPage|null Page Content, or null if page was not found
    */
   public function getPage(?string $url = null, array $options = []){
     $options = array_merge([
@@ -456,7 +457,7 @@ class Router {
       $pageFilename = $this->getPageFileName($url);
       return $this->getPageFromFile($pageFilename);
     }
-    catch(PageNotFoundException $ex){
+    catch(CmsPageNotFoundException $ex){
       return null;
     }
   }
@@ -464,13 +465,13 @@ class Router {
   /**
    * getPageFromFile - Get CMS Page from File
    * @param string $filePath Path to target file
-   * @return Page|null Page Content, or null if page was not found or an error occurrerd
+   * @return CmsPage|null Page Content, or null if page was not found or an error occurrerd
    */
   public function getPageFromFile(string $filePath){
     try{
       $pageContent = $this->getFile($filePath);
       $pageData = json_decode($pageContent, true);
-      return Page::fromArray($pageData);
+      return CmsPage::fromArray($pageData);
     }
     catch(\Exception $ex){
       return null;

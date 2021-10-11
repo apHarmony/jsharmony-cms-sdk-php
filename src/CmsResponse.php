@@ -20,14 +20,14 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace apHarmony\jsHarmonyCms;
 
-class Response {
+class CmsResponse {
   /** @var string|null */
   public $type = null; //'page' or 'redirect'
 
   /** @var string|null */
   public $filename = null;
 
-  /** @var Redirect|null */
+  /** @var CmsRedirect|null */
   public $redirect = null;
 
   function __construct(string $type){

@@ -7,80 +7,80 @@ Installation and integration instructions are available at [jsHarmonyCMS.com](ht
 
 ## API Documentation
 
-### *apHarmony\jsHarmonyCms\Router Class*
+### *apHarmony\jsHarmonyCms\CmsRouter Class*
 
-* [Constructor](#router-constructor)
+* [Constructor](#cmsrouter-constructor)
 * *Public Properties*
-   * [config](#router-config)
+   * [config](#cmsrouter-config)
 * *Public Methods*
-   * [serve](#router-serve)
-   * [getStandalone](#router-getstandalone)
-   * [isInEditor](#router-isineditor)
-   * [resolve](#router-resolve)
-   * [route](#router-route)
-   * [matchRedirect](#router-matchredirect)
-   * [getRedirectData](#router-getredirectdata)
-   * [getEditorScript](#router-geteditorscript)
-   * [serveFile](#router-servefile)
-   * [redirect301](#router-redirect301)
-   * [redirect302](#router-redirect302)
-   * [passthru](#router-passthru)
-   * [generate404](#router-generate404)
-   * [generateError](#router-generateerror)
-   * [getPage](#router-getpage)
-   * [getPageFromFile](#router-getpagefromfile)
-   * [getPageFileName](#router-getpagefileName)
-   * [getFile](#router-getfile)
-   * [getJsonFile](#router-getjsonfile)
+   * [serve](#cmsrouter-serve)
+   * [getStandalone](#cmsrouter-getstandalone)
+   * [isInEditor](#cmsrouter-isineditor)
+   * [resolve](#cmsrouter-resolve)
+   * [route](#cmsrouter-route)
+   * [matchRedirect](#cmsrouter-matchredirect)
+   * [getRedirectData](#cmsrouter-getredirectdata)
+   * [getEditorScript](#cmsrouter-geteditorscript)
+   * [serveFile](#cmsrouter-servefile)
+   * [redirect301](#cmsrouter-redirect301)
+   * [redirect302](#cmsrouter-redirect302)
+   * [passthru](#cmsrouter-passthru)
+   * [generate404](#cmsrouter-generate404)
+   * [generateError](#cmsrouter-generateerror)
+   * [getPage](#cmsrouter-getpage)
+   * [getPageFromFile](#cmsrouter-getpagefromfile)
+   * [getPageFileName](#cmsrouter-getpagefileName)
+   * [getFile](#cmsrouter-getfile)
+   * [getJsonFile](#cmsrouter-getjsonfile)
 
 
-### *apHarmony\jsHarmonyCms\Page Class*
+### *apHarmony\jsHarmonyCms\CmsPage Class*
 
 * *Public Properties*
-   * [seo](#page-seo)
-       * [title](#page-seo-title)
-       * [keywords](#page-seo-keywords)
-       * [metadesc](#page-seo-metadesc)
-       * [canonical_url](#page-seo-canonical_url)
-   * [css](#page-css)
-   * [js](#page-js)
-   * [header](#page-header)
-   * [footer](#page-footer)
-   * [title](#page-title)
-   * [page_template_id](#page-page_template_id)
-   * [content](#page-content)
-   * [properties](#page-properties)
-   * [isInEditor](#page-isineditor)
-   * [editorScript](#page-editorscript)
-   * [notFound](#page-notfound)
+   * [seo](#cmspage-seo)
+       * [title](#cmspage-seo-title)
+       * [keywords](#cmspage-seo-keywords)
+       * [metadesc](#cmspage-seo-metadesc)
+       * [canonical_url](#cmspage-seo-canonical_url)
+   * [css](#cmspage-css)
+   * [js](#cmspage-js)
+   * [header](#cmspage-header)
+   * [footer](#cmspage-footer)
+   * [title](#cmspage-title)
+   * [page_template_id](#cmspage-page_template_id)
+   * [content](#cmspage-content)
+   * [properties](#cmspage-properties)
+   * [isInEditor](#cmspage-isineditor)
+   * [editorScript](#cmspage-editorscript)
+   * [notFound](#cmspage-notfound)
 * *Public Methods*
-   * [fromArray](#pagefromarray)
+   * [fromArray](#cmspagefromarray)
 
-### *apHarmony\jsHarmonyCms\Response Class*
+### *apHarmony\jsHarmonyCms\CmsResponse Class*
 
-* [Constructor](#response-constructor)
+* [Constructor](#cmsresponse-constructor)
 * *Public Properties*
-   * [type](#response-type)
-   * [filename](#response-filename)
-   * [redirect](#response-redirect)
+   * [type](#cmsresponse-type)
+   * [filename](#cmsresponse-filename)
+   * [redirect](#cmsresponse-redirect)
 
 
-### *apHarmony\jsHarmonyCms\PassthruResponse Class*
+### *apHarmony\jsHarmonyCms\CmsPassthruResponse Class*
 
 * *Public Properties*
-   * [http_code](#passthruresponse-http_code)
-   * [content_type](#passthruresponse-content_type)
-   * [content](#passthruresponse-content)
+   * [http_code](#cmspassthruresponse-http_code)
+   * [content_type](#cmspassthruresponse-content_type)
+   * [content](#cmspassthruresponse-content)
 * *Public Methods*
-   * [serve](#passthruresponse-serve)
+   * [serve](#cmspassthruresponse-serve)
 
 
-### *apHarmony\jsHarmonyCms\Redirect Class*
+### *apHarmony\jsHarmonyCms\CmsRedirect Class*
 
-* [Constructor](#redirect-constructor)
+* [Constructor](#cmsredirect-constructor)
 * *Public Properties*
-   * [http_code](#redirect-http_code)
-   * [url](#redirect-url)
+   * [http_code](#cmsredirect-http_code)
+   * [url](#cmsredirect-url)
 
 ### *jsHarmonyCmsEditor Class* (Client JS)
 
@@ -89,14 +89,14 @@ Installation and integration instructions are available at [jsHarmonyCMS.com](ht
 
 ---
 
-## *apHarmony\jsHarmonyCms\Router Class*
+## *apHarmony\jsHarmonyCms\CmsRouter Class*
 
 ---
 
-## Router Constructor
+## CmsRouter Constructor
 
 ```php
-new Router($config)
+new CmsRouter($config)
 ```
 
 #### Arguments
@@ -131,7 +131,7 @@ new Router($config)
 
 #### Example
 ```php
-$cmsRouter = new Router([ 'cms_server_urls' => ['https://cms.example.com'] ]);
+$cmsRouter = new CmsRouter([ 'cms_server_urls' => ['https://cms.example.com'] ]);
 ```
 
 ---
@@ -140,10 +140,10 @@ $cmsRouter = new Router([ 'cms_server_urls' => ['https://cms.example.com'] ]);
 
 ---
 
-### Router->config
+### CmsRouter->config
 `(array)`
 
-An associative array with the Router's config.  Config parameters are defined in the Constructor above.
+An associative array with the CmsRouter's config.  Config parameters are defined in the Constructor above.
 ```php
 $cmsRouter->config['passthru_timeout'] = 60;
 ```
@@ -154,8 +154,8 @@ $cmsRouter->config['passthru_timeout'] = 60;
 
 ---
 
-### Router->serve
-`Router->serve(?string $url = null, array $options = [])`
+### CmsRouter->serve
+`CmsRouter->serve(?string $url = null, array $options = [])`
 
 *Main Entry Point* - Serve CMS Content
 #### Parameters
@@ -209,8 +209,8 @@ $cmsRouter->serve();
 
 ---
 
-### Router->getStandalone
-`Router->getStandalone(?string $url = null)`
+### CmsRouter->getStandalone
+`CmsRouter->getStandalone(?string $url = null)`
 
 *Main Entry Point* - Get CMS Page Data for Standalone Integration
 #### Parameters:
@@ -218,9 +218,9 @@ $cmsRouter->serve();
 
    Use Full URL, Root-relative URL, or leave blank to use current URL
 #### Returns
-`(Page)` Page Content
+`(CmsPage)` Page Content
 
-If page is opened from CMS Editor or Not Found, an empty Page Object will be returned
+If page is opened from CMS Editor or Not Found, an empty CmsPage Object will be returned
 #### Example
 ```php
 $cmsRouter->getStandalone();
@@ -228,8 +228,8 @@ $cmsRouter->getStandalone();
 
 ---
 
-### Router->isInEditor
-`Router->isInEditor(?string $url = null)`
+### CmsRouter->isInEditor
+`CmsRouter->isInEditor(?string $url = null)`
 
 Checks whether the page is in CMS Edit mode
 
@@ -248,8 +248,8 @@ if($cmsRouter->isInEditor()){ /* Perform Operation */ }
 
 ---
 
-### Router->resolve
-`Router->resolve(?string $url = null, array $options = [])`
+### CmsRouter->resolve
+`CmsRouter->resolve(?string $url = null, array $options = [])`
 
 Converts URL to CMS Content Path
 #### Parameters
@@ -277,8 +277,8 @@ $contentPath = $cmsRouter->resolve($targetUrl);
 
 ---
 
-### Router->route
-`Router->route(?string $url = null)`
+### CmsRouter->route
+`CmsRouter->route(?string $url = null)`
 
 Run CMS router on the target URL
 #### Parameters
@@ -286,7 +286,7 @@ Run CMS router on the target URL
 
    Use Full URL, Root-relative URL, or leave blank to use current URL
 #### Returns
-`(Response|null)` Response with Page Filename, Redirect, or null if not found
+`(CmsResponse|null)` Response with Page Filename, Redirect, or null if not found
 #### Example
 ```php
 $response = $cmsRouter->route($targetUrl);
@@ -294,8 +294,8 @@ $response = $cmsRouter->route($targetUrl);
 
 ---
 
-### Router->matchRedirect
-`Router->matchRedirect(?array $redirects, ?string $url)`
+### CmsRouter->matchRedirect
+`CmsRouter->matchRedirect(?array $redirects, ?string $url)`
 
 Check if URL matches redirects and return first match
 #### Parameters
@@ -304,7 +304,7 @@ Check if URL matches redirects and return first match
 
    Use Full URL, Root-relative URL, or leave blank to use current URL
 #### Returns
-`(Redirect|null)` Redirect
+`(CmsRedirect|null)` Redirect
 #### Example
 ```php
 $redirect = $cmsRouter->matchRedirect($cmsRedirects);
@@ -315,8 +315,8 @@ if($redirect && ($redirect->http_code=='301')){
 
 ---
 
-### Router->getRedirectData
-`Router->getRedirectData()`
+### CmsRouter->getRedirectData
+`CmsRouter->getRedirectData()`
 
 Get CMS Redirect Data
 
@@ -330,8 +330,8 @@ $cmsRedirects = $cmsRouter->getRedirectData();
 
 ---
 
-### Router->getEditorScript
-`Router->getEditorScript(?string $url = null)`
+### CmsRouter->getEditorScript
+`CmsRouter->getEditorScript(?string $url = null)`
 
 Generate script for CMS Editor
 #### Parameters
@@ -355,8 +355,8 @@ echo $cmsRouter->getEditorScript();
 
 ---
 
-### Router->serveFile
-`Router->serveFile($filePath)`
+### CmsRouter->serveFile
+`CmsRouter->serveFile($filePath)`
 
 Serves a file to the user
 #### Parameters
@@ -370,8 +370,8 @@ $cmsRouter->serveFile($pageFilename);
 
 ---
 
-### Router->redirect301
-`Router->redirect301(string $url)`
+### CmsRouter->redirect301
+`CmsRouter->redirect301(string $url)`
 
 Perform 301 Redirect
 #### Parameters
@@ -384,8 +384,8 @@ $cmsRouter->redirect301('https://example.com');
 
 ---
 
-### Router->redirect302
-`Router->redirect302(string $url)`
+### CmsRouter->redirect302
+`CmsRouter->redirect302(string $url)`
 
 Perform 302 Redirect
 #### Parameters
@@ -398,17 +398,17 @@ $cmsRouter->redirect302('https://example.com');
 
 ---
 
-### Router->passthru
-`Router->passthru(string $url)`
+### CmsRouter->passthru
+`CmsRouter->passthru(string $url)`
 
 Perform Passthru Request
 #### Parameters
 * `$url (string)` Target URL for Passthru Redirect
 
 #### Returns
-`(PassthruResponse)` Response
+`(CmsPassthruResponse)` Response
 
-Call the PassthruResponse->serve() method to serve the page
+Call the CmsPassthruResponse->serve() method to serve the page
 
 #### Example
 ```php
@@ -417,8 +417,8 @@ $cmsRouter->passthru('https://example.com')->serve();
 
 ---
 
-### Router->generate404
-`Router->generate404()`
+### CmsRouter->generate404
+`CmsRouter->generate404()`
 
 Generate a 404 Not Found Page
 #### Parameters
@@ -431,8 +431,8 @@ $cmsRouter->generate404();
 
 ---
 
-### Router->generateError
-`Router->generateError($err)`
+### CmsRouter->generateError
+`CmsRouter->generateError($err)`
 
 Generate a 500 Error Page
 #### Parameters
@@ -445,8 +445,8 @@ $cmsRouter->generateError('An unexpected error has occurred.');
 
 ---
 
-### Router->getPage
-`Router->getPage(?string $url = null, array $options = [])`
+### CmsRouter->getPage
+`CmsRouter->getPage(?string $url = null, array $options = [])`
 
 Get CMS Page from URL
 #### Parameters
@@ -462,7 +462,7 @@ Get CMS Page from URL
    ]
    ```
 #### Returns
-`(Page|null)` Page data, or null if page was not found
+`(CmsPage|null)` Page data, or null if page was not found
 #### Example
 ```php
 $page = $cmsRouter->getPage($targetUrl);
@@ -470,14 +470,14 @@ $page = $cmsRouter->getPage($targetUrl);
 
 ---
 
-### Router->getPageFromFile
-`Router->getPageFromFile(string $filePath)`
+### CmsRouter->getPageFromFile
+`CmsRouter->getPageFromFile(string $filePath)`
 
 Get CMS Page from file path
 #### Parameters
 * `$filePath (string)` Path to target file
 #### Returns
-`(Page|null)` Page data, or null if page was not found or an error occurred
+`(CmsPage|null)` Page data, or null if page was not found or an error occurred
 #### Example
 ```php
 $page = $cmsRouter->getPageFromFile($filePath);
@@ -485,8 +485,8 @@ $page = $cmsRouter->getPageFromFile($filePath);
 
 ---
 
-### Router->getPageFileName
-`Router->getPageFileName(?string $url = null, array $options = [])`
+### CmsRouter->getPageFileName
+`CmsRouter->getPageFileName(?string $url = null, array $options = [])`
 
 Get CMS Page File
 #### Parameters
@@ -504,7 +504,7 @@ Get CMS Page File
 #### Returns
 `(string)` Full path to CMS content file
 
-`PageNotFoundException` exception is thrown if page is not found
+`CmsPageNotFoundException` exception is thrown if page is not found
 #### Example
 ```php
 $pageFile = $cmsRouter->getPageFile($targetUrl);
@@ -512,8 +512,8 @@ $pageFile = $cmsRouter->getPageFile($targetUrl);
 
 ----
 
-### Router->getFile
-`Router->getFile($filePath)`
+### CmsRouter->getFile
+`CmsRouter->getFile($filePath)`
 
 Reads a file from the file system
 #### Parameters
@@ -530,8 +530,8 @@ $pageContent = $cmsRouter->getFile($pageFilename);
 
 ---
 
-### Router->getJsonFile
-`Router->getJsonFile($filePath)`
+### CmsRouter->getJsonFile
+`CmsRouter->getJsonFile($filePath)`
 
 Reads and parses a JSON file
 #### Parameters
@@ -548,7 +548,7 @@ $pageData = $cmsRouter->getJsonFile($pageFilename);
 
 ---
 
-## *apHarmony\jsHarmonyCms\Page Class*
+## *apHarmony\jsHarmonyCms\CmsPage Class*
 
 ---
 
@@ -556,15 +556,15 @@ $pageData = $cmsRouter->getJsonFile($pageFilename);
 
 ---
 
-### Page->seo
+### CmsPage->seo
 
-`(PageSeo)`
+`(CmsPageSeo)`
 
 A class instance with the SEO-related properties for a page
 
 ---
 
-### Page->seo->title
+### CmsPage->seo->title
 
 `(string)`
 
@@ -572,7 +572,7 @@ Page content for the header `<title>` tag
 
 ---
 
-### Page->seo->keywords
+### CmsPage->seo->keywords
 
 `(string)`
 
@@ -580,7 +580,7 @@ Page content for the header `<meta name="keywords" content="..." />` tag
 
 ---
 
-### Page->seo->metadesc
+### CmsPage->seo->metadesc
 
 `(string)`
 
@@ -588,7 +588,7 @@ Page content for the header `<meta name="description" content="..." />` tag
 
 ---
 
-### Page->seo->canonical_url
+### CmsPage->seo->canonical_url
 
 `(string)`
 
@@ -596,7 +596,7 @@ Page content for the header `<link rel="canonical" href="..." />` tag
 
 ---
 
-### Page->css
+### CmsPage->css
 
 `(string)`
 
@@ -604,7 +604,7 @@ Page content for a header `<style type="text/css">` tag
 
 ---
 
-### Page->js
+### CmsPage->js
 
 `(string)`
 
@@ -612,7 +612,7 @@ Page content for a header `<script type="javascript">` tag
 
 ---
 
-### Page->header
+### CmsPage->header
 
 `(string)`
 
@@ -620,7 +620,7 @@ HTML content to be appended to the `<head>` tag
 
 ---
 
-### Page->footer
+### CmsPage->footer
 
 `(string)`
 
@@ -628,7 +628,7 @@ HTML content to be appended to the end of the `<body>` tag
 
 ---
 
-### Page->title
+### CmsPage->title
 
 `(string)`
 
@@ -636,7 +636,7 @@ HTML content to be added to an `<h1>` tag in the body
 
 ---
 
-### Page->page_template_id
+### CmsPage->page_template_id
 
 `(string)`
 
@@ -644,9 +644,9 @@ Name of the CMS page template used by this page
 
 ---
 
-### Page->content
+### CmsPage->content
 
-`(PageDictionary)`
+`(CmsPageDictionary)`
 
 Array of content for this page, indexed by Content Element ID.
 
@@ -660,9 +660,9 @@ If a content area is not defined, its value will be an empty string.
 
 ---
 
-### Page->properties
+### CmsPage->properties
 
-`(PageDictionary)`
+`(CmsPageDictionary)`
 
 Array of property values for this page, indexed by property name.
 
@@ -677,7 +677,7 @@ If a property is not defined, its value will be an empty string.
 
 ---
 
-### Page->isInEditor
+### CmsPage->isInEditor
 
 `(bool)`
 
@@ -685,7 +685,7 @@ True if the page was detected to have been opened by the CMS.
 
 ---
 
-### Page->editorScript
+### CmsPage->editorScript
 
 `(string)`
 
@@ -693,11 +693,11 @@ If the page was opened by the CMS, the script tag used to launch the CMS Editor.
 
 ---
 
-### Page->notFound
+### CmsPage->notFound
 
 `(bool)`
 
-Set to true by Router->getStandalone if no matching content was found when the page content was supposed to be rendered (when not in CMS Editor mode).
+Set to true by CmsRouter->getStandalone if no matching content was found when the page content was supposed to be rendered (when not in CMS Editor mode).
 
 ---
 
@@ -705,17 +705,17 @@ Set to true by Router->getStandalone if no matching content was found when the p
 
 ---
 
-### Page::fromArray
-`Page::fromArray($data)`
+### CmsPage::fromArray
+`CmsPage::fromArray($data)`
 
-Generate a Page object from JSON data
+Generate a CmsPage object from JSON data
 #### Parameters
 * `$data (array)` CMS JSON Page Content
 #### Returns
-`(Page)` Page
+`(CmsPage)` Page
 #### Example
 ```php
-$page = Page::fromArray([
+$page = CmsPage::fromArray([
   'title'=>'Welcome',
   'content'=>['body'=>'Hello World']
 ]);
@@ -723,14 +723,14 @@ $page = Page::fromArray([
 
 ---
 
-## *apHarmony\jsHarmonyCms\Response Class*
+## *apHarmony\jsHarmonyCms\CmsResponse Class*
 
 ---
 
-## Response Constructor
+## CmsResponse Constructor
 
 ```php
-new Response($type)
+new CmsResponse($type)
 ```
 
 #### Arguments
@@ -739,7 +739,7 @@ new Response($type)
 
 #### Example
 ```php
-$response = new Response('page');
+$response = new CmsResponse('page');
 ```
 ---
 
@@ -747,7 +747,7 @@ $response = new Response('page');
 
 ---
 
-### Response->type
+### CmsResponse->type
 
 `(string|null)`
 
@@ -755,7 +755,7 @@ Type of the response - 'page' or 'redirect'
 
 ---
 
-### Response->filename
+### CmsResponse->filename
 
 `(string|null)`
 
@@ -763,15 +763,15 @@ Page filename, if response type is "page"
 
 ---
 
-### Response->redirect
+### CmsResponse->redirect
 
-`(Redirect|null)`
+`(CmsRedirect|null)`
 
 Redirect, if response type is "redirect"
 
 ---
 
-## *apHarmony\jsHarmonyCms\PassthruResponse Class*
+## *apHarmony\jsHarmonyCms\CmsPassthruResponse Class*
 
 ---
 
@@ -779,7 +779,7 @@ Redirect, if response type is "redirect"
 
 ---
 
-### PassthruResponse->http_code
+### CmsPassthruResponse->http_code
 
 `(int|null)`
 
@@ -787,7 +787,7 @@ The HTTP response code from the target passthru page
 
 ---
 
-### PassthruResponse->content_type
+### CmsPassthruResponse->content_type
 
 `(string|null)`
 
@@ -795,7 +795,7 @@ The HTTP content type from the target passthru page
 
 ---
 
-### PassthruResponse->content
+### CmsPassthruResponse->content
 
 `(string|null)`
 
@@ -807,8 +807,8 @@ The HTML content from the target passthru page
 
 ---
 
-### PassthruResponse->serve
-`PassthruResponse->serve()`
+### CmsPassthruResponse->serve
+`CmsPassthruResponse->serve()`
 
 Serve the passthru content to the user
 #### Parameters
@@ -820,14 +820,14 @@ $cmsRouter->passthru('https://example.com')->serve();
 
 ---
 
-## *apHarmony\jsHarmonyCms\Redirect Class*
+## *apHarmony\jsHarmonyCms\CmsRedirect Class*
 
 ---
 
-### Redirect Constructor
+### CmsRedirect Constructor
 
 ```php
-new Redirect($http_code, $url)
+new CmsRedirect($http_code, $url)
 ```
 
 #### Arguments
@@ -838,7 +838,7 @@ new Redirect($http_code, $url)
 
 #### Example
 ```php
-$redirect = new Redirect('301', 'https://example.com');
+$redirect = new CmsRedirect('301', 'https://example.com');
 ```
 
 ---
@@ -847,7 +847,7 @@ $redirect = new Redirect('301', 'https://example.com');
 
 ---
 
-### Redirect->http_code
+### CmsRedirect->http_code
 
 `(string|null)`
 
@@ -855,7 +855,7 @@ HTTP Code ('301', '302' or 'PASSTHRU')
 
 ---
 
-### Redirect->url
+### CmsRedirect->url
 
 `(string|null)`
 

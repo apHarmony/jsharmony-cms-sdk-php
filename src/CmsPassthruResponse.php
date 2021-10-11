@@ -22,18 +22,20 @@ namespace apHarmony\jsHarmonyCms;
 
 /**
  * @SuppressWarnings(PHPMD.CamelCasePropertyName)
- * @SuppressWarnings(PHPMD.CamelCaseVariableName)
- * @SuppressWarnings(PHPMD.CamelCaseParameterName)
  */
-class Redirect {
-  /** @var string|null */
-  public $http_code = null; //'301', '302', or 'PASSTHRU'
+class CmsPassthruResponse {
+  /** @var int|null */
+  public $http_code = null;
 
   /** @var string|null */
-  public $url = null;
+  public $content_type = null;
 
-  public function __construct($http_code, $url){
-    $this->http_code = $http_code;
-    $this->url = $url;
+  /** @var string|null */
+  public $content = null;
+
+  public function serve(){
+    if($this->http_code) http_response_code($this->http_code);
+    if($this->content_type) header('Content-Type: '.$this->content_type);
+    echo $this->content??'';
   }
 }

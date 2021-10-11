@@ -25,9 +25,9 @@ use Exception;
 /**
  * @SuppressWarnings(PHPMD.CamelCasePropertyName)
  */
-class Page {
+class CmsPage {
 
-  /** @var PageSeo */
+  /** @var CmsPageSeo */
   public $seo = null;
 
   /** @var string */
@@ -48,10 +48,10 @@ class Page {
   /** @var string */
   public $page_template_id = null;
 
-  /** @var PageDictionary */
+  /** @var CmsPageDictionary */
   public $content = null;
 
-  /** @var PageDictionary */
+  /** @var CmsPageDictionary */
   public $properties = null;
 
   /** @var bool */
@@ -64,7 +64,7 @@ class Page {
   public $notFound = false;
 
   public static function fromArray($data){
-    $page = new Page();
+    $page = new CmsPage();
     if(isset($data) && is_array($data)){
       foreach(['css','js','header','footer','title','page_template_id'] as $key){
         if(isset($data[$key])) $page->$key = $data[$key];
@@ -89,16 +89,16 @@ class Page {
   }
 
   public function __construct(){
-    $this->seo = new PageSeo();
-    $this->content = new PageDictionary();
-    $this->properties = new PageDictionary();
+    $this->seo = new CmsPageSeo();
+    $this->content = new CmsPageDictionary();
+    $this->properties = new CmsPageDictionary();
   }
 }
 
 /**
  * @SuppressWarnings(PHPMD.CamelCasePropertyName)
  */
-class PageSeo {
+class CmsPageSeo {
   /** @var string */
   public $title = '';
 
@@ -115,7 +115,7 @@ class PageSeo {
 /**
  * @SuppressWarnings(PHPMD.CamelCasePropertyName)
  */
-class PageDictionary {
+class CmsPageDictionary {
   public function __get($name){ return $this->__dictionary[$name] ?? ''; }
   public function __set($name, $val){ $this->__dictionary[$name] = $val; }
   public function __call($name, $args){
