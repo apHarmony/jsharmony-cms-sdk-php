@@ -550,7 +550,7 @@ class CmsRouter {
    * @SuppressWarnings(PHPMD.Superglobals)
    */
   private function getCurrentUrl(){
-    return $_SERVER['REQUEST_URI'];
+    return isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
   }
 
   private function prefixUrlSlash($url){
