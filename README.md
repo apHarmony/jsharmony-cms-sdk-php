@@ -28,6 +28,7 @@ Installation and integration instructions are available at [jsHarmonyCMS.com](ht
    * [generate404](#router-generate404)
    * [generateError](#router-generateerror)
    * [getPage](#router-getpage)
+   * [getPageFromFile](#router-getpagefromfile)
    * [getPageFileName](#router-getpagefileName)
    * [getFile](#router-getfile)
    * [getJsonFile](#router-getjsonfile)
