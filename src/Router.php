@@ -162,12 +162,12 @@ class Router {
     $page->isInEditor = $this->isInEditor();
     if($page->isInEditor) $page->editorScript = $this->getEditorScript();
     else {
-      $pageData = $this->getPageData($url);
+      $pageData = $this->getPage($url);
       if($pageData===null){
         $page->notFound = true;
       }
       else{
-        $page = Page::fromArray($pageData);
+        $page = $pageData;
       }
     }
     return $page;
@@ -438,14 +438,14 @@ class Router {
   }
 
   /**
-   * getPageData - Get CMS Page Data
+   * getPage - Get CMS Page Data
    * @param string|null $url CMS Page URL
    *      Use Full URL, Root-relative URL, or leave blank for current URL
    * @param array $options An associative array that may have any of the following keys:
    *      variation:           (int)  Starting Variation ID
-   * @return array|null JSON data as an associative array, or null if page was not found
+   * @return Page|null Page Content, or null if page was not found
    */
-  public function getPageData(?string $url = null, array $options = []){
+  public function getPage(?string $url = null, array $options = []){
     $options = array_merge([
       'variation' => 1,
     ], $options);
@@ -454,11 +454,25 @@ class Router {
     
     try{
       $pageFilename = $this->getPageFileName($url);
-      $pageContent = $this->getFile($pageFilename);
-      $pageData = json_decode($pageContent, true);
-      return $pageData;
+      return $this->getPageFromFile($pageFilename);
     }
     catch(PageNotFoundException $ex){
+      return null;
+    }
+  }
+
+  /**
+   * getPageFromFile - Get CMS Page from File
+   * @param string $filePath Path to target file
+   * @return Page|null Page Content, or null if page was not found or an error occurrerd
+   */
+  public function getPageFromFile(string $filePath){
+    try{
+      $pageContent = $this->getFile($filePath);
+      $pageData = json_decode($pageContent, true);
+      return Page::fromArray($pageData);
+    }
+    catch(\Exception $ex){
       return null;
     }
   }
@@ -490,17 +504,26 @@ class Router {
    * @return string File content
    */
   public function getFile($filePath){
+    if(!$filePath) throw new Exception('Blank file path');
+    if(!$this->pathIsAbsolute($filePath)){
+      $filePath = $this->joinPath($this->config['content_path'], $filePath);
+    }
     return file_get_contents($filePath);
   }
 
   /**
    * getJsonFile - Reads and parses a JSON file
    * @param string $filePath Path to target file
-   * @return array JSON content
+   * @return array|null JSON content, or null if file was not found or an error occurred
    */
   public function getJsonFile($filePath){
-    $content = $this->getFile($filePath);
-    return json_decode($content, true);
+    try{
+      $content = $this->getFile($filePath);
+      return json_decode($content, true);
+    }
+    catch(\Exception $ex){
+      return null;
+    }
   }
 
   //==================

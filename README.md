@@ -27,7 +27,7 @@ Installation and integration instructions are available at [jsHarmonyCMS.com](ht
    * [passthru](#router-passthru)
    * [generate404](#router-generate404)
    * [generateError](#router-generateerror)
-   * [getPageData](#router-getpagedata)
+   * [getPage](#router-getpage)
    * [getPageFileName](#router-getpagefileName)
    * [getFile](#router-getfile)
    * [getJsonFile](#router-getjsonfile)
@@ -444,10 +444,10 @@ $cmsRouter->generateError('An unexpected error has occurred.');
 
 ---
 
-### Router->getPageData
-`Router->getPageData(?string $url = null, array $options = [])`
+### Router->getPage
+`Router->getPage(?string $url = null, array $options = [])`
 
-Get CMS Page Data
+Get CMS Page from URL
 #### Parameters
 * `$url (string|null)` *(Optional)* CMS Page URL
 
@@ -461,10 +461,25 @@ Get CMS Page Data
    ]
    ```
 #### Returns
-`(array|null)` JSON data as an associative array, or null if page was not found
+`(Page|null)` Page data, or null if page was not found
 #### Example
 ```php
-$pageData = $cmsRouter->getPageData($targetUrl);
+$page = $cmsRouter->getPage($targetUrl);
+```
+
+---
+
+### Router->getPageFromFile
+`Router->getPageFromFile(string $filePath)`
+
+Get CMS Page from file path
+#### Parameters
+* `$filePath (string)` Path to target file
+#### Returns
+`(Page|null)` Page data, or null if page was not found or an error occurred
+#### Example
+```php
+$page = $cmsRouter->getPageFromFile($filePath);
 ```
 
 ---
@@ -522,7 +537,7 @@ Reads and parses a JSON file
 * `$filePath (string)` Path to target file
 
 #### Returns
-`(array)` JSON content
+`(array|null)` JSON content, or null if file was not found or an error occurred
 
 #### Example
 ```php
