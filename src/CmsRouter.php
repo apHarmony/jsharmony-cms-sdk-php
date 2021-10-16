@@ -175,6 +175,17 @@ class CmsRouter {
   }
 
   /**
+   * getPlaceholder - Get Placeholder Page for Editor template rendering
+   * @return CmsPage Placeholder Page
+   */
+  public function getPlaceholder(){
+    $page = new CmsPage();
+    $page->isInEditor = $this->isInEditor();
+    if($page->isInEditor) $page->editorScript = $this->getEditorScript();
+    return $page;
+  }
+
+  /**
    * isInEditor - Check whether page is currently in CMS Editing Mode
    * @param string|null $url CMS Page URL
    *      Use Full URL, Root-relative URL, or leave blank for current URL

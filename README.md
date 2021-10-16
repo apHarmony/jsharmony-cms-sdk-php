@@ -15,6 +15,7 @@ Installation and integration instructions are available at [jsHarmonyCMS.com](ht
 * *Public Methods*
    * [serve](#cmsrouter-serve)
    * [getStandalone](#cmsrouter-getstandalone)
+   * [getPlaceholder](#cmsrouter-getplaceholder)
    * [isInEditor](#cmsrouter-isineditor)
    * [resolve](#cmsrouter-resolve)
    * [route](#cmsrouter-route)
@@ -224,6 +225,23 @@ If page is opened from CMS Editor or Not Found, an empty CmsPage Object will be 
 #### Example
 ```php
 $cmsRouter->getStandalone();
+```
+
+---
+
+### CmsRouter->getPlaceholder
+`CmsRouter->getPlaceholder()`
+
+Get Placeholder Page for Editor template rendering
+#### Parameters:
+N/A
+
+#### Returns
+`(CmsPage)` Placeholder Page
+
+#### Example
+```php
+$cmsRouter->getPlaceholder();
 ```
 
 ---
