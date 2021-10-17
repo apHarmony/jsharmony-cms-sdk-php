@@ -365,7 +365,7 @@ class CmsRouter {
       }
     }
     if(!$foundMatch) return '';
-    return '<script type="text/javascript" src="'.$this->escapeHTMLAttr($this->joinPath($cmsServerUrl,'/js/jsHarmonyCMS.js')).'"></script>';
+    return '<script type="text/javascript" class="removeOnPublish" src="'.$this->escapeHTMLAttr($this->joinPath($cmsServerUrl,'/js/jsHarmonyCMS.js')).'"></script>';
   }
 
   /**
